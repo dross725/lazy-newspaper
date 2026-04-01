@@ -9,60 +9,94 @@
   <body>
     <main class="page">
       <section class="hero">
-        <p class="eyebrow">FastAPI + Groq</p>
+        <p class="eyebrow">FastAPI + NewsAPI + Groq</p>
         <h1>Lazy Newspaper</h1>
         <p class="lede">
-          Paste article text, choose a tone, and generate a concise newsroom-style summary.
+          Search for recent articles, load one into the editor, and generate a concise newsroom-style summary.
         </p>
         <div class="model-pill">Default model: {{ default_model }}</div>
       </section>
 
       <section class="app-shell">
-        <form id="summary-form" class="card form-card">
-          <label for="tone">Tone</label>
-          <input
-            id="tone"
-            name="tone"
-            type="text"
-            value="clear and concise"
-            maxlength="80"
-          />
+        <section class="left-column">
+          <form id="news-form" class="card form-card">
+            <label for="news-query">Search news</label>
+            <div class="search-row">
+              <input
+                id="news-query"
+                name="q"
+                type="text"
+                maxlength="100"
+                placeholder="Search for a topic, company, or person"
+                required
+              />
+              <button type="submit" id="news-search-button">Fetch Articles</button>
+            </div>
+            <p id="news-status" class="status" aria-live="polite"></p>
+          </form>
 
-          <label for="article_text">Article text</label>
-          <textarea
-            id="article_text"
-            name="article_text"
-            rows="16"
-            placeholder="Paste an article, press summarize, and the Groq result will appear on the right."
-            required
-          ></textarea>
+          <section class="card">
+            <div class="result-row">
+              <span class="result-label">Headline</span>
+              <h2 id="headline">Waiting for input</h2>
+            </div>
+          </section>
+        </section>
 
-          <button type="submit" id="submit-button">Summarize Article</button>
-          <p id="form-status" class="status" aria-live="polite"></p>
-        </form>
-
-        <section class="card result-card">
-          <div class="result-row">
-            <span class="result-label">Headline</span>
-            <h2 id="headline">Waiting for input</h2>
-          </div>
-
-          <div class="result-row">
-            <span class="result-label">Summary</span>
-            <p id="summary">
-              Your article summary will show up here after the API call completes.
+        <section class="card article-list-card">
+          <div class="section-heading">
+            <span id="article-list-label" class="result-label">Available articles</span>
+            <p id="article-list-copy" class="section-copy">
+              Search for a topic to load matching articles from NewsAPI.
             </p>
           </div>
-
-          <div class="result-row">
-            <span class="result-label">Best angle</span>
-            <p id="angle">No framing suggested yet.</p>
+          <div id="article-list" class="article-list">
+            <p class="empty-state">Search to load articles related to your topic.</p>
           </div>
+        </section>
 
-          <div class="result-row muted">
-            <span class="result-label">Model</span>
-            <p id="model">{{ default_model }}</p>
-          </div>
+        <section class="right-column">
+          <form id="summary-form" class="card form-card">
+            <label for="tone">Tone</label>
+            <input
+              id="tone"
+              name="tone"
+              type="text"
+              value="clear and concise"
+              maxlength="80"
+            />
+
+            <label for="article_text">Article text</label>
+            <textarea
+              id="article_text"
+              name="article_text"
+              rows="16"
+              placeholder="Paste an article, or load one from the search results."
+              required
+            ></textarea>
+
+            <button type="submit" id="submit-button">Summarize Article</button>
+            <p id="form-status" class="status" aria-live="polite"></p>
+          </form>
+
+          <section class="card result-card">
+            <div class="result-row">
+              <span class="result-label">Summary</span>
+              <p id="summary">
+                Your article summary will show up here after the API call completes.
+              </p>
+            </div>
+
+            <div class="result-row">
+              <span class="result-label">Best angle</span>
+              <p id="angle">No framing suggested yet.</p>
+            </div>
+
+            <div class="result-row muted">
+              <span class="result-label">Model</span>
+              <p id="model">{{ default_model }}</p>
+            </div>
+          </section>
         </section>
       </section>
     </main>
