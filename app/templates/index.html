@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lazy Newspaper</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">FastAPI + Groq</p>
+        <h1>Lazy Newspaper</h1>
+        <p class="lede">
+          Paste article text, choose a tone, and generate a concise newsroom-style summary.
+        </p>
+        <div class="model-pill">Default model: {{ default_model }}</div>
+      </section>
+
+      <section class="app-shell">
+        <form id="summary-form" class="card form-card">
+          <label for="tone">Tone</label>
+          <input
+            id="tone"
+            name="tone"
+            type="text"
+            value="clear and concise"
+            maxlength="80"
+          />
+
+          <label for="article_text">Article text</label>
+          <textarea
+            id="article_text"
+            name="article_text"
+            rows="16"
+            placeholder="Paste an article, press summarize, and the Groq result will appear on the right."
+            required
+          ></textarea>
+
+          <button type="submit" id="submit-button">Summarize Article</button>
+          <p id="form-status" class="status" aria-live="polite"></p>
+        </form>
+
+        <section class="card result-card">
+          <div class="result-row">
+            <span class="result-label">Headline</span>
+            <h2 id="headline">Waiting for input</h2>
+          </div>
+
+          <div class="result-row">
+            <span class="result-label">Summary</span>
+            <p id="summary">
+              Your article summary will show up here after the API call completes.
+            </p>
+          </div>
+
+          <div class="result-row">
+            <span class="result-label">Best angle</span>
+            <p id="angle">No framing suggested yet.</p>
+          </div>
+
+          <div class="result-row muted">
+            <span class="result-label">Model</span>
+            <p id="model">{{ default_model }}</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

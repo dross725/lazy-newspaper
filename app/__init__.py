@@ -1,0 +1,1 @@
+"""Lazy Newspaper application package."""
