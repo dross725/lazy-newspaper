@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 from groq import Groq
 
-
 DEFAULT_MODEL = "llama-3.1-8b-instant"
 
 

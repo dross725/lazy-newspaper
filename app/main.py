@@ -9,7 +9,6 @@ from pydantic import BaseModel, Field
 
 from app.groq_client import GroqConfigError, summarize_article
 
-
 BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(
