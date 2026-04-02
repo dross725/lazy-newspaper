@@ -6,7 +6,6 @@ from urllib.request import Request, urlopen
 
 from dotenv import load_dotenv
 
-
 NEWS_API_BASE_URL = "https://newsapi.org/v2/everything"
 
 load_dotenv()

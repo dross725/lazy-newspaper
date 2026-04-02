@@ -11,7 +11,6 @@ from pydantic import BaseModel, Field
 from app.groq_client import GroqConfigError, summarize_article
 from app.news_client import NewsApiConfigError, NewsApiRequestError, fetch_articles
 
-
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(BASE_DIR.parent / ".env")
 
@@ -19,6 +18,7 @@ app = FastAPI(title="Lazy Newspaper")
 
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+
 
 class SummarizeRequest(BaseModel):
     article_text: str = Field(..., min_length=50, description="Raw article text to summarize.")
