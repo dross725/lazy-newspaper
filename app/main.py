@@ -20,6 +20,7 @@ app = FastAPI(title="Lazy Newspaper")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
+
 class SummarizeRequest(BaseModel):
     article_text: str = Field(..., min_length=50, description="Raw article text to summarize.")
     tone: str = Field(default="clear and concise", min_length=3, max_length=80)
